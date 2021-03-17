@@ -12,21 +12,33 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 import java.util.*;
+import javafx.beans.InvalidationListener;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.collections.*;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.*;
-
+import javafx.geometry.Side;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.shape.Line;
 
 public class App extends Application {
+Pane root = new Pane();
+ 
+NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
 
+LineChart chart = new LineChart(xAxis, yAxis);
+//XYChart.Series series8 = new XYChart.Series();
+       
     @Override
     public void start(Stage primaryStage) {
         //panel principal
-        Pane root = new Pane();
+        //Pane root = new Pane();
         //Manejador datos csv
         GrowthChartManager manager = new GrowthChartManager();
         //lector del csv
@@ -53,7 +65,8 @@ public class App extends Application {
         XYChart.Series series5 = new XYChart.Series();
         XYChart.Series series6 = new XYChart.Series();
         XYChart.Series series7 = new XYChart.Series();
-        
+        //series8.getData().add(new XYChart.Data(30,0));
+        //series8.getData().add(new XYChart.Data(30,11.5));
         
         //Llenamos cada serie
         for(int i =1; i<arrli.size();i++){
@@ -94,15 +107,15 @@ public class App extends Application {
         series7.setName("percentil97");
 
         double[] arr ={24,11,30,11.5,43,15,60,20,77,25,90,29};
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
+        //NumberAxis xAxis = new NumberAxis();
+        //NumberAxis yAxis = new NumberAxis();
         xAxis.setAutoRanging(true);
         //xAxis.setForceZeroInRange(false);
         yAxis.setAutoRanging(true);
         //yAxis.setForceZeroInRange(false);
         xAxis.setLabel("Edad");
         yAxis.setLabel("Peso");
-        LineChart chart = new LineChart(
+         chart = new LineChart(
         xAxis, yAxis,
         FXCollections.observableArrayList(
         new XYChart.Series(
@@ -120,7 +133,7 @@ public class App extends Application {
         XYChart.Series series = (XYChart.Series)chart.getData().get(0);
         chart.getData().remove(0,1);
         chart.getData().addAll(series1, series2, series3,series4,series5,series6,series7,series);
-
+        chart.setAnimated(false);
 
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
 
@@ -133,9 +146,14 @@ public class App extends Application {
                 stackPane.setVisible(false);
             }
         }
+        
+        
+//Line line44 = new Line(20, 100, 270, 100);
+//line44.getStrokeDashArray().addAll(2d);
 
         root.getChildren().add(chart);
-
+  //       root.getChildren().add(line44);
+        root.setPadding(new Insets(5,5,5,5));
         Scene scene = new Scene(root,1000,800);
         primaryStage.setScene(scene);
 
@@ -151,7 +169,7 @@ public class App extends Application {
         Color color = Color.RED; // or any other color
         Color color1 = Color.BLUE; // or any other color
 
-        String rgb = String.format("%d, %d, %d",
+        /**String rgb = String.format("%d, %d, %d",
         (int) (color.getRed() * 255),
         (int) (color.getGreen() * 255),
         (int) (color.getBlue() * 255));
@@ -192,8 +210,8 @@ public class App extends Application {
         line4.setStyle("-fx-stroke: rgba(" + rgb4 + ", 1.0);");
         line5.setStyle("-fx-stroke: rgba(" + rgb5 + ", 1.0);");
         line6.setStyle("-fx-stroke: rgba(" + rgb6 + ", 1.0);");
-        line7.setStyle("-fx-stroke: rgba(" + rgb7 + ", 1.0);");
-        
+        line7.setStyle("-fx-stroke: rgba(" + rgb7 + ", 1.0);");*/
+        chart.setLegendSide(Side.RIGHT);
 
         System.out.println(manager.Zscore(16.80719583, 30.5,arrli)+","+ manager.percentil(16.80719583, 30.5,arrli));
         //new ZoomManager(root, chart, series);
@@ -203,7 +221,7 @@ public class App extends Application {
   
 
     /**
-     * 
+     * Metodo para crear nodos para la grafica de crecimiento del paciente
      * @param y - arreglo de pesos y meses del paciente
      * @return 
      */
@@ -214,9 +232,8 @@ public class App extends Application {
         while (i < y.length) {
             final XYChart.Data<Double, Double> data = new XYChart.Data<>(y[i], y[i+1]);
             data.setNode(
-            new HoveredThresholdNode(
-            (i == 0) ? 0 : y[i-1],
-            y[i]
+            new HoveredThresholdNode(y[i],
+            y[i+1]
             )
             );
 
@@ -238,18 +255,36 @@ public class App extends Application {
          */
         HoveredThresholdNode(double priorValue, double value) {
             setPrefSize(15, 15);
-
             final Label label = createDataThresholdLabel(priorValue, value);
+            //lineas punteadas
+              final XYChart.Series series8 = new XYChart.Series();
+            series8.getData().add(new XYChart.Data(priorValue,0));
+              series8.getData().add(new XYChart.Data(priorValue,value));
+              
+               final XYChart.Series series9 = new XYChart.Series();
+            series9.getData().add(new XYChart.Data(0,value));
+              series9.getData().add(new XYChart.Data(priorValue,value));
+              
 
-            setOnMouseEntered(new EventHandler<MouseEvent>() {
+            setOnMouseEntered(new EventHandler<MouseEvent>(){
                 @Override public void handle(MouseEvent mouseEvent) {
+                  chart.getData().addAll(series8,series9);
+                  System.out.println(mouseEvent.getSceneX()+","+  mouseEvent.getSceneY()+","+  xAxis.getDisplayPosition(30)+","+ yAxis.getDisplayPosition(11.5));
+                    
+                  
+                    //currentLine.setEndX(mouseEvent.getX());
+            //currentLine.setEndY(mouseEvent.getY());
                     getChildren().setAll(label);
                     setCursor(Cursor.NONE);
                     toFront();
+              
                 }
             });
             setOnMouseExited(new EventHandler<MouseEvent>() {
                 @Override public void handle(MouseEvent mouseEvent) {
+                   chart.getData().remove(series8);
+                   chart.getData().remove(series9);
+                   //series8.getData().removeAll();
                     getChildren().clear();
                     setCursor(Cursor.CROSSHAIR);
                 }
@@ -263,9 +298,9 @@ public class App extends Application {
          * @return 
          */
         private Label createDataThresholdLabel(double priorValue, double value) {
-            String s=Double.toString(value/12);
+            String s=Double.toString(priorValue/12);
             String [] values = s.split("\\.");
-            final Label label = new Label("Edad: " +values[0]+" años " +values[1].substring(0,1)+" meses" +"\n"+"Peso:"+priorValue+ "kg");
+            final Label label = new Label("Edad: " +values[0]+" años " +values[1].substring(0,1)+" meses" +"\n"+"Peso:"+value+ "kg");
             label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
             label.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
 
@@ -281,6 +316,12 @@ public class App extends Application {
             return label;
         }
     }
+    
+    
+    
+    /**private Line createDotedLine(){
+        return currentLne;
+    }*/
     public static void main(String[] args) {
         launch();
     }

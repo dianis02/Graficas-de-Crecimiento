@@ -71,7 +71,7 @@ public class GrowthChartManager {
                 L = Double.parseDouble(values.get(1));
                 M = Double.parseDouble(values.get(2));
                 S = Double.parseDouble(values.get(3));
-                System.out.println("Entre if");
+              
                 break;
     
             }
