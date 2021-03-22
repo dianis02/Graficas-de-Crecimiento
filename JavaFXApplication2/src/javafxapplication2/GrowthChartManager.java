@@ -40,11 +40,12 @@ public class GrowthChartManager {
     }
     
     public String elegirTablaBebes(int sex){
+ 
         String archivo = null;
         if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/JavaFXApplication2/longitudMujer.csv";
+            archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/longitudMujer.csv";
         }else{
-           archivo = "/home/dianis/NetBeansProjects/JavaFXApplication2/longitudHombre.csv";
+           archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/longitudHombre.csv";
         }//checamos sexo
         return archivo;
     }
@@ -93,7 +94,7 @@ public class GrowthChartManager {
     public double percentil (double X, double age,ArrayList<String> arrli){
         NormalDistribution dist = new NormalDistribution();
         double zscore  = Zscore(X,age,arrli);
-        double val = Math.floor(dist.cumulativeProbability(zscore)* 100) / 100;
+        double val = Math.round(dist.cumulativeProbability(zscore)* 100);
         return val;
     }
 
