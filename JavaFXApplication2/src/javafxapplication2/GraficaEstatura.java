@@ -17,7 +17,7 @@ import javafx.geometry.Side;
  *
  * @author dianis
  */
-public class GraficaPeso {
+public class GraficaEstatura {
     
     public LineChart Grafica(Pane root, NumberAxis xAxis, NumberAxis yAxis,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
@@ -36,7 +36,7 @@ public class GraficaPeso {
         //if(manager.edad(edadActual)){
           //  archivo = manager.elegirTablaBebes(sexo);
         //}else{
-            archivo = manager.elegirTablaPeso(sexo);
+            archivo = manager.elegirTablaEstatura(sexo);
         //}
         
 
@@ -181,4 +181,3 @@ public class GraficaPeso {
 }
     
 }
-

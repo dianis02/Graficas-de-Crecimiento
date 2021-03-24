@@ -31,20 +31,22 @@ public class HoveredThresholdNode extends Pane {
     HoveredThresholdNode(double priorValue, double value,LineChart chart) {
         setPrefSize(15, 15);
         final Label label = createDataThresholdLabel(priorValue, value);
-        setOnMouseEntered(new EventHandler<MouseEvent>(){
+        setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override public void handle(MouseEvent mouseEvent) {
+             if(mouseEvent.getClickCount()==1){
+
                 getChildren().setAll(label);
                 setCursor(Cursor.NONE);
                 toFront();
+                
+             }else if(mouseEvent.getClickCount()==2){
+                 getChildren().clear();
+                setCursor(Cursor.CROSSHAIR);
+             }
 
             }
         });
-        setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent mouseEvent) {
-                getChildren().clear();
-                setCursor(Cursor.CROSSHAIR);
-            }
-        });
+        
     }
 
     /**
