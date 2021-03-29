@@ -21,9 +21,19 @@ public class GrowthChartManager {
     public String elegirTablaPeso(int sex){
         String archivo = null;
         if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/wtageMujer.csv";
+            archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/tablas_crecimiento/niños/wtageMujer.csv";
         }else{
-           archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/wtageHombre.csv";
+           archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/tablas_crecimiento/niños/wtageHombre.csv";
+        }//checamos sexo
+        return archivo;
+    }
+    
+    public String elegirTablaIMC(int sex){
+        String archivo = null;
+        if(sexo(sex)){
+            archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/tablas_crecimiento/niños/wtageMujer.csv";
+        }else{
+           archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/tablas_crecimiento/niños/wtageHombre.csv";
         }//checamos sexo
         return archivo;
     }
@@ -32,9 +42,9 @@ public class GrowthChartManager {
     public String elegirTablaEstatura(int sex){
         String archivo = null;
         if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/statageMujer.csv";
+            archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/tablas_crecimiento/niños/statageMujer.csv";
         }else{
-           archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/statageHombre.csv";
+           archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/tablas_crecimiento/niños/statageHombre.csv";
         }//checamos sexo
         return archivo;
     }
@@ -43,9 +53,9 @@ public class GrowthChartManager {
  
         String archivo = null;
         if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/longitudMujer.csv";
+            archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/tablas_crecimiento/bebes/longitudMujer.csv";
         }else{
-           archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/longitudHombre.csv";
+           archivo = "/home/dianis/NetBeansProjects/Graficas-de-Crecimiento/JavaFXApplication2/tablas_crecimiento/bebes/longitudHombre.csv";
         }//checamos sexo
         return archivo;
     }
@@ -113,6 +123,13 @@ public class GrowthChartManager {
         }
         return values;
     }
+    
+    public double convertirMeses(double meses){
+        double edad= meses/12;
+        return edad;
+    }
+    
+    
 
 
 

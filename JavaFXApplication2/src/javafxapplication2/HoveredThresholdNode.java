@@ -56,8 +56,7 @@ public class HoveredThresholdNode extends Pane {
     * @return
     */
     private Label createDataThresholdLabel(double priorValue, double value) {
-        String s=Double.toString(priorValue/12);
-        String [] values = s.split("\\.");
+        String [] values = valoresEdad(priorValue);
         final Label label = new Label("Edad: " +values[0]+" años " +values[1].substring(0,1)+" meses" +"\n"+"Peso:"+value+ "kg");
         label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
         label.setStyle("-fx-font-size: 15; -fx-font-weight: bold;");
@@ -96,7 +95,8 @@ public class HoveredThresholdNode extends Pane {
             stackPane.setVisible(false);
         }
     }
-
+    
+   
     public static void eliminarLineasGuia(LineChart chart, XYChart.Series<Double, Double> series8, XYChart.Series<Double, Double> series9){
     chart.getData().remove(series8);
     chart.getData().remove(series9);
@@ -121,5 +121,13 @@ public class HoveredThresholdNode extends Pane {
         }
 
         return dataset;
+    }
+    
+    
+    public String[] valoresEdad(double edad){
+        String etiquetaEdad =Double.toString(edad);
+        String [] valores = etiquetaEdad.split("\\.");
+        valores[1] = Double.toString((Double.parseDouble(valores[1])/10)*12);
+        return valores;
     }
 }

@@ -17,13 +17,21 @@ import javafx.geometry.Side;
  *
  * @author dianis
  */
-public class GraficaEstatura {
+public class EstaturaxEdadMayores {
     
-    public LineChart Grafica(Pane root, NumberAxis xAxis, NumberAxis yAxis,LineChart chart,double[] crecimiento){
+    NumberAxis xAxis = new NumberAxis(1,20,1); //ejes
+    NumberAxis yAxis = new NumberAxis(70,200,5);
+    
+    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
-        double[] arr ={24,11,30,11.5,43,15,60,20,77,25,90,29};
+        double[] arr ={24,81,30,88,43,95,60,105,77,114,90,120};
         //Manejador datos csv
         GrowthChartManager manager = new GrowthChartManager();
+        
+        //convertimos los meses en años
+        for(int i = 0; i<arr.length; i+=2){
+            arr[i]=manager.convertirMeses(arr[i]);
+        }
         //lector del csv
         ReadExcelFile reader = new ReadExcelFile();
         //arreglo con toda la información de csv
@@ -58,25 +66,25 @@ public class GraficaEstatura {
             for(int j=0; j<values.size(); j++){
                 switch(j){
                     case 4:
-                    series1.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                    series1.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
                     break;
                     case 5:
-                    series2.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                    series2.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
                     break;
                     case 6:
-                    series3.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                    series3.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
                     break;
                     case 7:
-                    series4.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                    series4.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
                     break;
                     case 8:
-                    series5.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                    series5.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
                     break;
                     case 9:
-                    series6.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                    series6.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
                     break;
                     case 10:
-                    series7.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                    series7.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
                     break;
                 }
             }
@@ -93,9 +101,9 @@ public class GraficaEstatura {
         //Estilo ejes
         //NumberAxis xAxis = new NumberAxis();
         //NumberAxis yAxis = new NumberAxis();
-        xAxis.setAutoRanging(true);
+        //xAxis.setAutoRanging(true);
         //xAxis.setForceZeroInRange(false);
-        yAxis.setAutoRanging(true);
+        //yAxis.setAutoRanging(true);
         //yAxis.setForceZeroInRange(false);
         xAxis.setLabel("Edad");
         yAxis.setLabel("Peso");
@@ -127,6 +135,7 @@ public class GraficaEstatura {
         chart.setLegendSide(Side.RIGHT);
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
+        chart.setTitle("Estatura para la edad");
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
@@ -169,6 +178,7 @@ public class GraficaEstatura {
         line6.setStyle("-fx-stroke: #FFFF00;");
         line7.setStyle("-fx-stroke: #FF0000;");
 
+        
 
         //calculo zscore y percentil
         //System.out.println(manager.Zscore(16.80719583, 30.5,arrli)+","+ manager.percentil(16.80719583, 30.5,arrli));
@@ -181,3 +191,4 @@ public class GraficaEstatura {
 }
     
 }
+
