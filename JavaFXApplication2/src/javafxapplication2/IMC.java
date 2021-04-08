@@ -4,27 +4,29 @@
 * and open the template in the editor.
 */
 package javafxapplication2;
+
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Side;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
-import java.util.*;
-import javafx.scene.Node;
-import javafx.collections.*;
-import javafx.scene.*;
-import javafx.geometry.Side;
+
 /**
 *
 * @author dianis
 */
-public class PesoxEdadMayores {
-    NumberAxis xAxis = new NumberAxis(1,20,1); //ejes
-    NumberAxis yAxis = new NumberAxis();
+public class IMC {
+    NumberAxis xAxis = new NumberAxis(1,21,1); //ejes
+    NumberAxis yAxis = new NumberAxis(13,35,2);
 
-
-    public LineChart Grafica(Pane root, LineChart chart,double[] crecimiento){
+    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
-        double[] arr ={24,11,30,11.5,43,15,60,20,77,25,90,29};
+        double[] arr ={24,14.3,30,14.7,43,15.8,60,15.9,77,16.4,90,17,217,30};
         //Manejador datos csv
         GrowthChartManager manager = new GrowthChartManager();
 
@@ -37,10 +39,11 @@ public class PesoxEdadMayores {
         //arreglo con toda la información de csv
 
         int edadActual = 30; //provisional, esto se jalara de la base
-        int sexo = 1; //provisonal, esto se jalara de la base
+        int sexo = 2; //provisonal, esto se jalara de la base
         String archivo = null;
 
-        archivo = manager.elegirTablaPeso(sexo);
+        archivo = manager.elegirTablaIMC(sexo);
+        System.out.println(archivo);
 
 
 
@@ -55,11 +58,16 @@ public class PesoxEdadMayores {
         XYChart.Series series5 = new XYChart.Series();
         XYChart.Series series6 = new XYChart.Series();
         XYChart.Series series7 = new XYChart.Series();
+        XYChart.Series series10 = new XYChart.Series();
+        XYChart.Series series11 = new XYChart.Series();
 
         //Llenamos cada serie
         for(int i =1; i<arrli.size();i++){
             ArrayList<String> values = manager.getRecordFromLine(arrli.get(i));
             for(int j=0; j<values.size(); j++){
+
+
+
                 switch(j){
                     case 4:
                     series1.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
@@ -82,6 +90,12 @@ public class PesoxEdadMayores {
                     case 10:
                     series7.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
                     break;
+                    case 11:
+                    series10.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
+                    break;
+                    case 12:
+                    series11.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
+                    break;
                 }
             }
         }
@@ -91,12 +105,14 @@ public class PesoxEdadMayores {
         series3.setName("percentil25");
         series4.setName("percentil50");
         series5.setName("percentil75");
-        series6.setName("percentil90");
-        series7.setName("percentil97");
+        series6.setName("percentil85");
+        series7.setName("percentil90");
+        series10.setName("percentil95");
+        series11.setName("percentil97");
 
         //Estilo ejes
         xAxis.setLabel("Edad");
-        yAxis.setLabel("Peso");
+        yAxis.setLabel("IMC");
 
         //Creamos la grafica con el crecimiento del paciente
 
@@ -119,14 +135,13 @@ public class PesoxEdadMayores {
         XYChart.Series series = (XYChart.Series)chart.getData().get(0);
 
         chart.getData().remove(0,1);
-        chart.getData().addAll(series1, series2, series3,series4,series5,series6,series7,series);
+        chart.getData().addAll(series1, series2, series3,series4,series5,series6,series7,series10,series11,series);
         //estilo grafica
         chart.setAnimated(false);
         chart.setLegendSide(Side.RIGHT);
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
-
-        chart.setTitle("Peso para la edad");
+        chart.setTitle("Índice de Masa Corporal");
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
@@ -151,6 +166,8 @@ public class PesoxEdadMayores {
         Node line6 = series6.getNode().lookup(".chart-series-line");
         Node line7 = series7.getNode().lookup(".chart-series-line");
 
+        Node line10 = series10.getNode().lookup(".chart-series-line");
+        Node line11 = series11.getNode().lookup(".chart-series-line");
 
 
 
@@ -160,16 +177,18 @@ public class PesoxEdadMayores {
             line.setStyle("-fx-stroke: #0000FF;");
         }
 
-
-        line1.setStyle("-fx-stroke: #FF0000;");
-        line2.setStyle("-fx-stroke: #FFFF00;");
-        line3.setStyle("-fx-stroke: #00FF00;");
-        line4.setStyle("-fx-stroke: #00FF00;");
+        //rojo=#FF0000;
+        //amarillo= #FFFF00"
+        //verde= #00FF00;
+        line1.setStyle("-fx-stroke: #FF0000;");//rojo
+        line2.setStyle("-fx-stroke: #FF0000;");
+        line3.setStyle("-fx-stroke: #FFFF00;");
+        line4.setStyle("-fx-stroke: #00FF00;");//verde
         line5.setStyle("-fx-stroke: #00FF00;");
         line6.setStyle("-fx-stroke: #FFFF00;");
-        line7.setStyle("-fx-stroke: #FF0000;");
-
-
+        line7.setStyle("-fx-stroke: #FFFF00");//amarillo
+        line10.setStyle("-fx-stroke: #FF0000;");
+        line11.setStyle("-fx-stroke: #FF0000;");
 
 
         //calculo zscore y percentil

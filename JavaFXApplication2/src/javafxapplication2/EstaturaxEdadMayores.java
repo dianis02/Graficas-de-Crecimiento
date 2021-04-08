@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package javafxapplication2;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -14,20 +14,20 @@ import javafx.collections.*;
 import javafx.scene.*;
 import javafx.geometry.Side;
 /**
- *
- * @author dianis
- */
+*
+* @author dianis
+*/
 public class EstaturaxEdadMayores {
-    
+
     NumberAxis xAxis = new NumberAxis(1,20,1); //ejes
     NumberAxis yAxis = new NumberAxis(70,200,5);
-    
+
     public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={24,81,30,88,43,95,60,105,77,114,90,120};
         //Manejador datos csv
         GrowthChartManager manager = new GrowthChartManager();
-        
+
         //convertimos los meses en años
         for(int i = 0; i<arr.length; i+=2){
             arr[i]=manager.convertirMeses(arr[i]);
@@ -40,13 +40,9 @@ public class EstaturaxEdadMayores {
         int sexo = 1; //provisonal, esto se jalara de la base
         String archivo = null;
 
-        //dependiendo la edad y el sexo se elige el csv a leer
-        //if(manager.edad(edadActual)){
-          //  archivo = manager.elegirTablaBebes(sexo);
-        //}else{
-            archivo = manager.elegirTablaEstatura(sexo);
-        //}
-        
+        archivo = manager.elegirTablaEstatura(sexo);
+
+
 
         ArrayList<String> arrli = reader.leer(archivo);
 
@@ -99,17 +95,11 @@ public class EstaturaxEdadMayores {
         series7.setName("percentil97");
 
         //Estilo ejes
-        //NumberAxis xAxis = new NumberAxis();
-        //NumberAxis yAxis = new NumberAxis();
-        //xAxis.setAutoRanging(true);
-        //xAxis.setForceZeroInRange(false);
-        //yAxis.setAutoRanging(true);
-        //yAxis.setForceZeroInRange(false);
         xAxis.setLabel("Edad");
-        yAxis.setLabel("Peso");
+        yAxis.setLabel("Estatura");
 
         //Creamos la grafica con el crecimiento del paciente
-       
+
         chart = new LineChart(
         xAxis, yAxis,
         FXCollections.observableArrayList(
@@ -122,12 +112,12 @@ public class EstaturaxEdadMayores {
         )
         );
 
-        
+
 
         //lo obtenemos y lo eliminamos para añadirlo al final
         //porque lo dibuja atras de lo contrario
         XYChart.Series series = (XYChart.Series)chart.getData().get(0);
-        
+
         chart.getData().remove(0,1);
         chart.getData().addAll(series1, series2, series3,series4,series5,series6,series7,series);
         //estilo grafica
@@ -178,17 +168,16 @@ public class EstaturaxEdadMayores {
         line6.setStyle("-fx-stroke: #FFFF00;");
         line7.setStyle("-fx-stroke: #FF0000;");
 
-        
+
 
         //calculo zscore y percentil
         //System.out.println(manager.Zscore(16.80719583, 30.5,arrli)+","+ manager.percentil(16.80719583, 30.5,arrli));
         //System.out.println(manager.Zscore(84.51558277, 30.5,arrli)+","+ manager.percentil(84.51558277, 30.5,arrli));
         //System.out.println(manager.Zscore(2.4, 45,arrli)+","+ manager.percentil(2.4, 45,arrli));
 
-//new ZoomManager(root, chart, series);
-       
-        return chart;
-}
-    
-}
+        //new ZoomManager(root, chart, series);
 
+        return chart;
+    }
+
+}

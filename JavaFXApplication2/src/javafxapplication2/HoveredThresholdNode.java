@@ -33,20 +33,20 @@ public class HoveredThresholdNode extends Pane {
         final Label label = createDataThresholdLabel(priorValue, value);
         setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override public void handle(MouseEvent mouseEvent) {
-             if(mouseEvent.getClickCount()==1){
+                if(mouseEvent.getClickCount()==1){
 
-                getChildren().setAll(label);
-                setCursor(Cursor.NONE);
-                toFront();
-                
-             }else if(mouseEvent.getClickCount()==2){
-                 getChildren().clear();
-                setCursor(Cursor.CROSSHAIR);
-             }
+                    getChildren().setAll(label);
+                    setCursor(Cursor.NONE);
+                    toFront();
+
+                }else if(mouseEvent.getClickCount()==2){
+                    getChildren().clear();
+                    setCursor(Cursor.CROSSHAIR);
+                }
 
             }
         });
-        
+
     }
 
     /**
@@ -57,9 +57,9 @@ public class HoveredThresholdNode extends Pane {
     */
     private Label createDataThresholdLabel(double priorValue, double value) {
         String [] values = valoresEdad(priorValue);
-        final Label label = new Label("Edad: " +values[0]+" años " +values[1].substring(0,1)+" meses" +"\n"+"Peso:"+value+ "kg");
+        final Label label = new Label("Edad:" +values[0]+" años " +"\n"+values[1].substring(0,1)+" meses" +"\n"+"Peso:"+value+ "kg");
         label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
-        label.setStyle("-fx-font-size: 15; -fx-font-weight: bold;");
+        label.setStyle("-fx-font-size: 12; -fx-font-weight: bold;");
 
         if (priorValue == 0) {
             label.setTextFill(Color.DARKGRAY);
@@ -95,15 +95,15 @@ public class HoveredThresholdNode extends Pane {
             stackPane.setVisible(false);
         }
     }
-    
-   
+
+
     public static void eliminarLineasGuia(LineChart chart, XYChart.Series<Double, Double> series8, XYChart.Series<Double, Double> series9){
-    chart.getData().remove(series8);
-    chart.getData().remove(series9);
-   
-   
+        chart.getData().remove(series8);
+        chart.getData().remove(series9);
+
+
     }
-    
+
     public  static ObservableList<XYChart.Data<Double, Double>> plot(double[] y, LineChart chart) {
         ObservableList<XYChart.Data<Double, Double>> dataset = FXCollections.observableArrayList();
         int i = 0;
@@ -122,8 +122,8 @@ public class HoveredThresholdNode extends Pane {
 
         return dataset;
     }
-    
-    
+
+
     public String[] valoresEdad(double edad){
         String etiquetaEdad =Double.toString(edad);
         String [] valores = etiquetaEdad.split("\\.");

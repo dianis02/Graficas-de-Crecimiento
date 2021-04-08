@@ -4,34 +4,33 @@
 * and open the template in the editor.
 */
 package javafxapplication2;
+
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Side;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
-import java.util.*;
-import javafx.scene.Node;
-import javafx.collections.*;
-import javafx.scene.*;
-import javafx.geometry.Side;
+
 /**
 *
 * @author dianis
 */
-public class PesoxEdadMayores {
-    NumberAxis xAxis = new NumberAxis(1,20,1); //ejes
-    NumberAxis yAxis = new NumberAxis();
+public class PesoxEdadMenores {
+    NumberAxis xAxis = new NumberAxis(0,20,1); //ejes
+    NumberAxis yAxis = new NumberAxis(2,16,1);
 
-
-    public LineChart Grafica(Pane root, LineChart chart,double[] crecimiento){
+    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
-        double[] arr ={24,11,30,11.5,43,15,60,20,77,25,90,29};
+        double[] arr ={2,2.5,5,4.5,10,7,14,9,18,10,22,12};
         //Manejador datos csv
         GrowthChartManager manager = new GrowthChartManager();
 
-        //convertimos los meses en años
-        for(int i = 0; i<arr.length; i+=2){
-            arr[i]=manager.convertirMeses(arr[i]);
-        }
+
         //lector del csv
         ReadExcelFile reader = new ReadExcelFile();
         //arreglo con toda la información de csv
@@ -40,63 +39,53 @@ public class PesoxEdadMayores {
         int sexo = 1; //provisonal, esto se jalara de la base
         String archivo = null;
 
-        archivo = manager.elegirTablaPeso(sexo);
+        archivo = manager.elegirPesoxEdad(sexo);
 
 
 
         ArrayList<String> arrli = reader.leer(archivo);
 
 
-        //Creamos las series de todos los percentiles estandar
+   //Creamos las series de todos los percentiles estandar
         XYChart.Series series1 = new XYChart.Series();
         XYChart.Series series2 = new XYChart.Series();
         XYChart.Series series3 = new XYChart.Series();
         XYChart.Series series4 = new XYChart.Series();
         XYChart.Series series5 = new XYChart.Series();
-        XYChart.Series series6 = new XYChart.Series();
-        XYChart.Series series7 = new XYChart.Series();
 
         //Llenamos cada serie
         for(int i =1; i<arrli.size();i++){
             ArrayList<String> values = manager.getRecordFromLine(arrli.get(i));
             for(int j=0; j<values.size(); j++){
                 switch(j){
-                    case 4:
-                    series1.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
-                    break;
-                    case 5:
-                    series2.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
-                    break;
-                    case 6:
-                    series3.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
-                    break;
-                    case 7:
-                    series4.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
-                    break;
-                    case 8:
-                    series5.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
-                    break;
-                    case 9:
-                    series6.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
-                    break;
-                    case 10:
-                    series7.getData().add(new XYChart.Data(manager.convertirMeses(Double.parseDouble(values.get(0))),Double.parseDouble(values.get(j))));
-                    break;
+                        case 4:
+                        series1.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                        break;
+                        case 5:
+                        series2.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                        break;
+                        case 6:
+                        series3.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                        break;
+                        case 7:
+                        series4.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                        break;
+                        case 8:
+                        series5.getData().add(new XYChart.Data(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(j))));
+                        break;
                 }
             }
         }
 
         series1.setName("percentil3");
-        series2.setName("percentil10");
-        series3.setName("percentil25");
-        series4.setName("percentil50");
-        series5.setName("percentil75");
-        series6.setName("percentil90");
-        series7.setName("percentil97");
+        series2.setName("percentil15");
+        series3.setName("percentil50");
+        series4.setName("percentil85");
+        series5.setName("percentil97");
 
         //Estilo ejes
-        xAxis.setLabel("Edad");
-        yAxis.setLabel("Peso");
+        xAxis.setLabel("Edad (meses)");
+        yAxis.setLabel("Peso (kilogramos)");
 
         //Creamos la grafica con el crecimiento del paciente
 
@@ -119,14 +108,13 @@ public class PesoxEdadMayores {
         XYChart.Series series = (XYChart.Series)chart.getData().get(0);
 
         chart.getData().remove(0,1);
-        chart.getData().addAll(series1, series2, series3,series4,series5,series6,series7,series);
+        chart.getData().addAll(series1, series2, series3,series4,series5,series);
         //estilo grafica
         chart.setAnimated(false);
         chart.setLegendSide(Side.RIGHT);
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
-
-        chart.setTitle("Peso para la edad");
+        chart.setTitle("Peso para la Edad Menores 2 Años");
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
@@ -148,8 +136,7 @@ public class PesoxEdadMayores {
         Node line3 = series3.getNode().lookup(".chart-series-line");
         Node line4 = series4.getNode().lookup(".chart-series-line");
         Node line5 = series5.getNode().lookup(".chart-series-line");
-        Node line6 = series6.getNode().lookup(".chart-series-line");
-        Node line7 = series7.getNode().lookup(".chart-series-line");
+
 
 
 
@@ -166,8 +153,6 @@ public class PesoxEdadMayores {
         line3.setStyle("-fx-stroke: #00FF00;");
         line4.setStyle("-fx-stroke: #00FF00;");
         line5.setStyle("-fx-stroke: #00FF00;");
-        line6.setStyle("-fx-stroke: #FFFF00;");
-        line7.setStyle("-fx-stroke: #FF0000;");
 
 
 
@@ -183,3 +168,4 @@ public class PesoxEdadMayores {
     }
 
 }
+
