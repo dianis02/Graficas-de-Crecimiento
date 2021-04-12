@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 public class LongitudxPesoMenores {
     NumberAxis xAxis = new NumberAxis(45,110,5); //ejes
     NumberAxis yAxis = new NumberAxis(0,22,2);
+    String nombre = "Peso para la Longitud Menores 2 Años";
 
     public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
@@ -95,7 +96,7 @@ public class LongitudxPesoMenores {
         new XYChart.Series(
         "crecimiento",
         FXCollections.observableArrayList(
-        HoveredThresholdNode.plot(arr,chart)
+        HoveredThresholdNode.plot(arr,chart,nombre)
         )
         )
         )
@@ -114,7 +115,7 @@ public class LongitudxPesoMenores {
         chart.setLegendSide(Side.RIGHT);
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
-        chart.setTitle("Peso para la Longitud Menores 2 Años");
+        chart.setTitle(nombre);
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {

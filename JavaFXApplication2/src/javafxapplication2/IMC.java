@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 public class IMC {
     NumberAxis xAxis = new NumberAxis(1,21,1); //ejes
     NumberAxis yAxis = new NumberAxis(13,35,2);
+    String nombre = "Índice de Masa Corporal";
 
     public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
@@ -122,7 +123,7 @@ public class IMC {
         new XYChart.Series(
         "crecimiento",
         FXCollections.observableArrayList(
-        HoveredThresholdNode.plot(arr,chart)
+        HoveredThresholdNode.plot(arr,chart,nombre)
         )
         )
         )
@@ -141,7 +142,7 @@ public class IMC {
         chart.setLegendSide(Side.RIGHT);
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
-        chart.setTitle("Índice de Masa Corporal");
+        chart.setTitle(nombre);
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {

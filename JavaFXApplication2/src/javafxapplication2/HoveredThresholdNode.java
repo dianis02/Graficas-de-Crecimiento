@@ -28,9 +28,9 @@ public class HoveredThresholdNode extends Pane {
     * @param priorValue
     * @param value
     */
-    HoveredThresholdNode(double priorValue, double value,LineChart chart) {
+    HoveredThresholdNode(double priorValue, double value,LineChart chart,String nombre) {
         setPrefSize(15, 15);
-        final Label label = createDataThresholdLabel(priorValue, value);
+        final Label label = createDataThresholdLabel(priorValue, value,nombre);
         setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getClickCount()==1){
@@ -55,9 +55,8 @@ public class HoveredThresholdNode extends Pane {
     * @param value
     * @return
     */
-    private Label createDataThresholdLabel(double priorValue, double value) {
-        String [] values = valoresEdad(priorValue);
-        final Label label = new Label("Edad:" +values[0]+" años " +"\n"+values[1].substring(0,1)+" meses" +"\n"+"Peso:"+value+ "kg");
+    private Label createDataThresholdLabel(double priorValue, double value, String nombre) {
+        final Label label = elegirEtiqueta(priorValue,value,nombre);
         label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
         label.setStyle("-fx-font-size: 12; -fx-font-weight: bold;");
 
@@ -104,7 +103,7 @@ public class HoveredThresholdNode extends Pane {
 
     }
 
-    public  static ObservableList<XYChart.Data<Double, Double>> plot(double[] y, LineChart chart) {
+    public  static ObservableList<XYChart.Data<Double, Double>> plot(double[] y, LineChart chart, String nombre) {
         ObservableList<XYChart.Data<Double, Double>> dataset = FXCollections.observableArrayList();
         int i = 0;
 
@@ -113,7 +112,7 @@ public class HoveredThresholdNode extends Pane {
             data.setNode(
             new HoveredThresholdNode(y[i],
             y[i+1],
-            chart)
+            chart, nombre)
             );
 
             dataset.add(data);
@@ -129,5 +128,34 @@ public class HoveredThresholdNode extends Pane {
         String [] valores = etiquetaEdad.split("\\.");
         valores[1] = Double.toString((Double.parseDouble(valores[1])/10)*12);
         return valores;
+    }
+    
+    private Label elegirEtiqueta(double priorValue, double value, String nombre){
+        if(nombre.equals("Longitud para la Edad Menores 2 Años")||nombre.equals("Peso para la Edad Menores 2 Años")||
+                nombre.equals("Perímetro Cefálico (centímetros)")){
+            priorValue=priorValue/12;
+        }
+        String [] values = valoresEdad(priorValue);
+        Label label = null;
+        if(nombre.equals("Longitud para la Edad Menores 2 Años")||nombre.equals("Talla para la edad")){
+            label = new Label("Edad:" +values[0]+" años " +"\n"+values[1].substring(0,1)+" meses" +"\n"+"Talla:"+value+ "cm");
+            System.out.println(values[1]);
+            
+        }else if(nombre.equals("Peso para la Edad Menores 2 Años")||nombre.equals("Peso para la edad")){
+            
+            label = new Label("Edad:" +values[0]+" años " +"\n"+values[1].substring(0,1)+" meses" +"\n"+"Peso:"+value+ "kg");
+            
+        }else if(nombre.equals("Perímetro Cefálico (centímetros)")){
+            label = new Label("Edad:" +values[0]+" años " +"\n"+values[1].substring(0,1)+" meses" +"\n"+"Perímetro:"+value+ "cm");
+            
+        }else if(nombre.equals("Peso para la Longitud Menores 2 Años")){
+            label = new Label("Longitud:" +priorValue+"cm"+"\n"+"Peso:"+value+ "kg");
+            
+            
+        }else if(nombre.equals("Índice de Masa Corporal")){
+            label = new Label("Edad:" +values[0]+" años " +"\n"+values[1].substring(0,1)+" meses" +"\n"+"IMC:"+value);
+            
+        }
+        return label;
     }
 }

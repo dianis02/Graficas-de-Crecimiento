@@ -20,6 +20,7 @@ import javafx.geometry.Side;
 public class PesoxEdadMayores {
     NumberAxis xAxis = new NumberAxis(1,20,1); //ejes
     NumberAxis yAxis = new NumberAxis();
+    String nombre = "Peso para la edad";
 
 
     public LineChart Grafica(Pane root, LineChart chart,double[] crecimiento){
@@ -106,7 +107,7 @@ public class PesoxEdadMayores {
         new XYChart.Series(
         "crecimiento",
         FXCollections.observableArrayList(
-        HoveredThresholdNode.plot(arr,chart)
+        HoveredThresholdNode.plot(arr,chart,nombre)
         )
         )
         )
@@ -126,7 +127,7 @@ public class PesoxEdadMayores {
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
 
-        chart.setTitle("Peso para la edad");
+        chart.setTitle(nombre);
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {

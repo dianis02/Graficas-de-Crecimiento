@@ -21,16 +21,17 @@ import javafx.scene.layout.Pane;
 * @author dianis
 */
 public class PesoxEdadMenores {
-    NumberAxis xAxis = new NumberAxis(0,20,1); //ejes
+    NumberAxis xAxis = new NumberAxis(0,26,1); //ejes
     NumberAxis yAxis = new NumberAxis(2,16,1);
+    String nombre = "Peso para la Edad Menores 2 Años";
 
     public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={2,2.5,5,4.5,10,7,14,9,18,10,22,12};
         //Manejador datos csv
         GrowthChartManager manager = new GrowthChartManager();
-
-
+        
+       
         //lector del csv
         ReadExcelFile reader = new ReadExcelFile();
         //arreglo con toda la información de csv
@@ -95,7 +96,7 @@ public class PesoxEdadMenores {
         new XYChart.Series(
         "crecimiento",
         FXCollections.observableArrayList(
-        HoveredThresholdNode.plot(arr,chart)
+        HoveredThresholdNode.plot(arr,chart,nombre)
         )
         )
         )
@@ -114,7 +115,7 @@ public class PesoxEdadMenores {
         chart.setLegendSide(Side.RIGHT);
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
-        chart.setTitle("Peso para la Edad Menores 2 Años");
+        chart.setTitle(nombre);
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {

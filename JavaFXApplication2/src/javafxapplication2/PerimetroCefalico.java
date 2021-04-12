@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 public class PerimetroCefalico {
     NumberAxis xAxis = new NumberAxis(0,24,1); //ejes
     NumberAxis yAxis = new NumberAxis(31,52,1);
+    String nombre = "Perímetro Cefálico (centímetros)";
 
     public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
@@ -30,7 +31,7 @@ public class PerimetroCefalico {
         //Manejador datos csv
         GrowthChartManager manager = new GrowthChartManager();
 
-
+        
         //lector del csv
         ReadExcelFile reader = new ReadExcelFile();
         //arreglo con toda la información de csv
@@ -85,7 +86,7 @@ public class PerimetroCefalico {
 
         //Estilo ejes
         xAxis.setLabel("Edad (meses)");
-        yAxis.setLabel("Perímetro Cefálico (centímetros)");
+        yAxis.setLabel(nombre);
 
         //Creamos la grafica con el crecimiento del paciente
 
@@ -95,7 +96,7 @@ public class PerimetroCefalico {
         new XYChart.Series(
         "crecimiento",
         FXCollections.observableArrayList(
-        HoveredThresholdNode.plot(arr,chart)
+        HoveredThresholdNode.plot(arr,chart,nombre)
         )
         )
         )

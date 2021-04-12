@@ -197,6 +197,7 @@ public class App extends Application {
                                 line8.setStyle("-fx-stroke: #000000;-fx-stroke-dash-array: 2 12;");
                                 line9.setStyle("-fx-stroke: #000000;-fx-stroke-dash-array: 2 12;");
                                 System.out.println( data.getXValue()+","+ data.getYValue());
+                               
                             }
 
                         }

@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 public class LongitudxEdadMenores {
     NumberAxis xAxis = new NumberAxis(0,25,1); //ejes
     NumberAxis yAxis = new NumberAxis(45,95,5);
+    String nombre = "Longitud para la Edad Menores 2 Años";
 
     public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
@@ -30,7 +31,7 @@ public class LongitudxEdadMenores {
         //Manejador datos csv
         GrowthChartManager manager = new GrowthChartManager();
 
-
+        
         //lector del csv
         ReadExcelFile reader = new ReadExcelFile();
         //arreglo con toda la información de csv
@@ -95,7 +96,7 @@ public class LongitudxEdadMenores {
         new XYChart.Series(
         "crecimiento",
         FXCollections.observableArrayList(
-        HoveredThresholdNode.plot(arr,chart)
+        HoveredThresholdNode.plot(arr,chart,nombre)
         )
         )
         )
@@ -114,7 +115,7 @@ public class LongitudxEdadMenores {
         chart.setLegendSide(Side.RIGHT);
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
-        chart.setTitle("Longitud para la Edad Menores 2 Años");
+        chart.setTitle(nombre);
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
@@ -153,14 +154,6 @@ public class LongitudxEdadMenores {
         line3.setStyle("-fx-stroke: #00FF00;");
         line4.setStyle("-fx-stroke: #00FF00;");
         line5.setStyle("-fx-stroke: #00FF00;");
-
-
-
-
-        //calculo zscore y percentil
-        //System.out.println(manager.Zscore(16.80719583, 30.5,arrli)+","+ manager.percentil(16.80719583, 30.5,arrli));
-        //System.out.println(manager.Zscore(84.51558277, 30.5,arrli)+","+ manager.percentil(84.51558277, 30.5,arrli));
-        //System.out.println(manager.Zscore(2.4, 45,arrli)+","+ manager.percentil(2.4, 45,arrli));
 
         //new ZoomManager(root, chart, series);
 

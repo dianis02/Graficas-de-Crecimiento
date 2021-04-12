@@ -21,6 +21,7 @@ public class EstaturaxEdadMayores {
 
     NumberAxis xAxis = new NumberAxis(1,20,1); //ejes
     NumberAxis yAxis = new NumberAxis(70,200,5);
+    String nombre = "Talla para la edad";
 
     public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
         //datos del paciente provisionales, se debe jalar de la base
@@ -106,7 +107,7 @@ public class EstaturaxEdadMayores {
         new XYChart.Series(
         "crecimiento",
         FXCollections.observableArrayList(
-        HoveredThresholdNode.plot(arr,chart)
+        HoveredThresholdNode.plot(arr,chart,nombre)
         )
         )
         )
@@ -125,7 +126,7 @@ public class EstaturaxEdadMayores {
         chart.setLegendSide(Side.RIGHT);
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
-        chart.setTitle("Estatura para la edad");
+        chart.setTitle(nombre);
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
