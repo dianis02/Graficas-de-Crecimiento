@@ -244,8 +244,9 @@ public class GrowthChartManager {
      * @return double edad
      */
     public double convertirMeses(double meses){
-        double edad= meses/12;
+        double edad= Math.round((meses/12)*100.0)/100.0;
         return edad;
+        
     }
 
 /**

@@ -126,14 +126,20 @@ public class HoveredThresholdNode extends Pane {
     public String[] valoresEdad(double edad){
         String etiquetaEdad =Double.toString(edad);
         String [] valores = etiquetaEdad.split("\\.");
-        valores[1] = Double.toString((Double.parseDouble(valores[1])/10)*12);
+        int meses = 0;
+        if(valores[1].equals("5")){
+              meses = (int) Math.round((Double.parseDouble(valores[1])/10)*12); //solucion bug edad con 6 meses
+        }else{
+          meses = (int) Math.round((Double.parseDouble(valores[1])/100)*12);  
+        }
+        valores[1] = Integer.toString(meses);
         return valores;
     }
     
     private Label elegirEtiqueta(double priorValue, double value, String nombre){
         if(nombre.equals("Longitud para la Edad Menores 2 Años")||nombre.equals("Peso para la Edad Menores 2 Años")||
                 nombre.equals("Perímetro Cefálico (centímetros)")){
-            priorValue=priorValue/12;
+            priorValue=Math.round((priorValue/12)*100.0)/100.0;
         }
         String [] values = valoresEdad(priorValue);
         Label label = null;
@@ -143,7 +149,7 @@ public class HoveredThresholdNode extends Pane {
             
         }else if(nombre.equals("Peso para la Edad Menores 2 Años")||nombre.equals("Peso para la edad")){
             
-            label = new Label("Edad:" +values[0]+" años " +"\n"+values[1].substring(0,1)+" meses" +"\n"+"Peso:"+value+ "kg");
+            label = new Label("Edad:" +values[0]+" años " +"\n"+values[1]+" meses" +"\n"+"Peso:"+value+ "kg");
             
         }else if(nombre.equals("Perímetro Cefálico (centímetros)")){
             label = new Label("Edad:" +values[0]+" años " +"\n"+values[1].substring(0,1)+" meses" +"\n"+"Perímetro:"+value+ "cm");

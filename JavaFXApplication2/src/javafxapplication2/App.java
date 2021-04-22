@@ -41,6 +41,7 @@ public class App extends Application {
     PesoxEdadMenores graficaPesoxEdad = new PesoxEdadMenores();
     PerimetroCefalico graficaPerimetroCefalico = new PerimetroCefalico();
     int contador = -1;
+    //en meses
     int edadActual = 20;
     int sexo = 2;
     public void start(Stage primaryStage){
