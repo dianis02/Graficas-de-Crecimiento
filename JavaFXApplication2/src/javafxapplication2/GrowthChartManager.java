@@ -160,7 +160,7 @@ public class GrowthChartManager {
 
                 break;
                //Si el param no está , calculamos L,M,S por medio de interpolacion
-            }else if(Double.parseDouble(values.get(0))==(fila+0.5)){
+            }else if(Double.parseDouble(values.get(0))==(menor5(fila)+0.5)||Double.parseDouble(values.get(0))== menor5(fila+1)){
                 //fila anterior del csv
                 ArrayList<String> anterior = getRecordFromLine(arrli.get(i-1));
                 double x0 =0;
@@ -261,6 +261,14 @@ public class GrowthChartManager {
  */
 public double interpolacion(double x0, double y0, double x1, double y1, double x){
     return y0+((y1-y0)/(x1-x0))*(x-x0);
+}
+public double menor5(double valor){
+    String[] num = String.valueOf(valor).split("\\.");
+    double decimal = Double.parseDouble(num[1]);
+    if(decimal<5){
+        return Double.parseDouble(num[0]);
+    }
+    return Double.parseDouble(num[0])+0.5;
 }
 
 }
