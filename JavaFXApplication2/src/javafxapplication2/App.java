@@ -3,6 +3,7 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
+//actualización git
 package javafxapplication2;
 import com.sun.javafx.charts.Legend;
 import javafx.scene.Scene;
