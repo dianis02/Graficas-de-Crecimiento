@@ -23,7 +23,7 @@ public class PesoxEdadMayores {
     String nombre = "Peso para la edad";
 
 
-    public LineChart Grafica(Pane root, LineChart chart,double[] crecimiento){
+    public LineChart Grafica(Pane root, LineChart chart,double[] crecimiento,int sexo){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={24,11,30,11.5,43,15,60,20,77,25,90,29};
         //Manejador datos csv
@@ -37,8 +37,6 @@ public class PesoxEdadMayores {
         ReadExcelFile reader = new ReadExcelFile();
         //arreglo con toda la información de csv
 
-        int edadActual = 30; //provisional, esto se jalara de la base
-        int sexo = 1; //provisonal, esto se jalara de la base
         String archivo = null;
 
         archivo = manager.elegirTablaPeso(sexo);

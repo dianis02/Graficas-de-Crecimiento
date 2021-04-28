@@ -25,7 +25,7 @@ public class IMC {
     NumberAxis yAxis = new NumberAxis(13,35,2);
     String nombre = "Índice de Masa Corporal";
 
-    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
+    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento,int sexo){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={24,14.3,30,14.7,43,15.8,60,15.9,77,16.4,90,17,217,30};
         //Manejador datos csv
@@ -39,8 +39,6 @@ public class IMC {
         ReadExcelFile reader = new ReadExcelFile();
         //arreglo con toda la información de csv
 
-        int edadActual = 30; //provisional, esto se jalara de la base
-        int sexo = 2; //provisonal, esto se jalara de la base
         String archivo = null;
 
         archivo = manager.elegirTablaIMC(sexo);

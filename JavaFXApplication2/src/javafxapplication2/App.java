@@ -43,15 +43,15 @@ public class App extends Application {
     PerimetroCefalico graficaPerimetroCefalico = new PerimetroCefalico();
     int contador = -1;
     //en meses
-    int edadActual = 20;
-    int sexo = 2;
+    int edadActual = 28;
+    int sexo = 1;
     public void start(Stage primaryStage){
 
         //cambiar dependiendo la edad
         if(GrowthChartManager.edad(edadActual)){
-            chart = graficaPesoxEdad.Grafica(root,this.chart,arr);
+            chart = graficaPesoxEdad.Grafica(root,this.chart,arr,sexo);
         }else{
-            chart = graficaPeso.Grafica(root,this.chart,arr);
+            chart = graficaPeso.Grafica(root,this.chart,arr,sexo);
         }
         //GraficaPeso graficaPeso = new GraficaPeso();
         //chart = graficaPeso.Grafica(root,this.chart,arr);
@@ -69,14 +69,14 @@ public class App extends Application {
                 switch(contador){
                     case 0:
                     root.getChildren().clear();
-                    chart = graficaLongitudEdad.Grafica(root,this.chart,arr);
+                    chart = graficaLongitudEdad.Grafica(root,this.chart,arr,sexo);
                     setLegend();
                     lineasGuia();
                     contador++;
                     break;
                     case 1:
                     root.getChildren().clear();
-                    chart = graficaLongitudPeso.Grafica(root,this.chart,arr);
+                    chart = graficaLongitudPeso.Grafica(root,this.chart,arr,sexo);
                     lineasGuia();
                     setLegend();
                     contador++;
@@ -84,7 +84,7 @@ public class App extends Application {
 
                     case 2:
                     root.getChildren().clear();
-                    chart = graficaPerimetroCefalico.Grafica(root,this.chart,arr);
+                    chart = graficaPerimetroCefalico.Grafica(root,this.chart,arr,sexo);
                     lineasGuia();
                     setLegend();
                     contador++;
@@ -93,7 +93,7 @@ public class App extends Application {
 
                     case 3:
                     root.getChildren().clear();
-                    chart = graficaPesoxEdad.Grafica(root,this.chart,arr);
+                    chart = graficaPesoxEdad.Grafica(root,this.chart,arr,sexo);
                     lineasGuia();
                     setLegend();
                     contador-=3;
@@ -109,21 +109,21 @@ public class App extends Application {
                 switch(contador){
                     case 0:
                     root.getChildren().clear();
-                    chart = graficaEstatura.Grafica(root,this.chart,arr);
+                    chart = graficaEstatura.Grafica(root,this.chart,arr,sexo);
                     setLegend();
                     lineasGuia();
                     contador++;
                     break;
                     case 1:
                     root.getChildren().clear();
-                    chart = graficaIMC.Grafica(root,this.chart,arr);
+                    chart = graficaIMC.Grafica(root,this.chart,arr,sexo);
                     lineasGuia();
                     setLegend();
                     contador++;
                     break;
                     case 2:
                     root.getChildren().clear();
-                    chart = graficaPeso.Grafica(root,this.chart,arr);
+                    chart = graficaPeso.Grafica(root,this.chart,arr,sexo);
                     lineasGuia();
                     setLegend();
                     contador-=2;

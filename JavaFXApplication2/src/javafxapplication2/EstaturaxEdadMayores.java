@@ -23,7 +23,7 @@ public class EstaturaxEdadMayores {
     NumberAxis yAxis = new NumberAxis(70,200,5);
     String nombre = "Talla para la edad";
 
-    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
+    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento,int sexo){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={24,81,30,88,43,95,60,105,77,114,90,120};
         //Manejador datos csv
@@ -36,9 +36,6 @@ public class EstaturaxEdadMayores {
         //lector del csv
         ReadExcelFile reader = new ReadExcelFile();
         //arreglo con toda la información de csv
-
-        int edadActual = 30; //provisional, esto se jalara de la base
-        int sexo = 1; //provisonal, esto se jalara de la base
         String archivo = null;
 
         archivo = manager.elegirTablaEstatura(sexo);

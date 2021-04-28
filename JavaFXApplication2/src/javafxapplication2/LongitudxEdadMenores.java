@@ -25,7 +25,7 @@ public class LongitudxEdadMenores {
     NumberAxis yAxis = new NumberAxis(45,95,5);
     String nombre = "Longitud para la Edad Menores 2 Años";
 
-    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento){
+    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento,int sexo){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={2,58,5,62,10,67,14,80,18,85,22,89};
         //Manejador datos csv
@@ -36,8 +36,6 @@ public class LongitudxEdadMenores {
         ReadExcelFile reader = new ReadExcelFile();
         //arreglo con toda la información de csv
 
-        int edadActual = 30; //provisional, esto se jalara de la base
-        int sexo = 1; //provisonal, esto se jalara de la base
         String archivo = null;
 
         archivo = manager.elegirlongitudxEdad(sexo);
