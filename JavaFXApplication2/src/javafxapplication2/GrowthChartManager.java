@@ -13,8 +13,8 @@ public class GrowthChartManager {
     * @param sexo - entero que define el sexo del paciente 1-hombre , 2-mujer
     * @return verdadero si sexo es distinto de 1
     */
-    public boolean sexo(int sexo){
-        return sexo!=1;
+    public boolean sexo(String sexo){
+        return sexo.equals("mujer");
     }
     /**
      * Metodo para determinar a que rango pertenece el paciente:
@@ -22,7 +22,7 @@ public class GrowthChartManager {
      * @param meses - edad del paciente en meses
      * @return 
      */
-    public static boolean edad(int meses){
+    public static boolean menorEdad(int meses){
         return meses<24;
     }
 
@@ -31,12 +31,12 @@ public class GrowthChartManager {
      * @param sex - entero que define el sexo del paciente
      * @return archivo - nombre del archivo a leer
      */
-    public String elegirTablaPeso(int sex){
+    public String elegirTablaPeso(String sex){
         String archivo = null;
         if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/niños/wtageMujer.csv";
+            archivo = "resources/tablas_crecimiento/niños/wtageMujer.csv";
         }else{
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/niños/wtageHombre.csv";
+            archivo = "resources/tablas_crecimiento/niños/wtageHombre.csv";
         }//checamos sexo
         return archivo;
     }
@@ -46,44 +46,12 @@ public class GrowthChartManager {
      * @param sex - entero que define el sexo del paciente
      * @return archivo - nombre del archivo a leer
      */
-    public String elegirTablaIMC(int sex){
+    public String elegirTablaIMC(String sex){
         String archivo = null;
         if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/niños/IMCMujeres.csv";
+            archivo = "resources/tablas_crecimiento/niños/IMCMujeres.csv";
         }else{
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/niños/IMCHombres.csv";
-        }//checamos sexo
-        return archivo;
-    }
-
-    
-    /**
-     * Metodo para definir que tabla leer dependiendo al sexo del paciente
-     * @param sex - entero que define el sexo del paciente
-     * @return archivo - nombre del archivo a leer
-     */
-    public String elegirTablaEstatura(int sex){
-        String archivo = null;
-        if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/niños/statageMujer.csv";
-        }else{
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/niños/statageHombre.csv";
-        }//checamos sexo
-        return archivo;
-    }
-
-    /**
-     * Metodo para definir que tabla leer dependiendo al sexo del paciente
-     * @param sex - entero que define el sexo del paciente
-     * @return archivo - nombre del archivo a leer
-     */
-    public String elegirlongitudxEdad(int sex){
-
-        String archivo = null;
-        if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/bebés/longitudxEdadMujeres.csv";
-        }else{
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/bebés/longitudxEdadHombres.csv";
+            archivo = "resources/tablas_crecimiento/niños/IMCHombres.csv";
         }//checamos sexo
         return archivo;
     }
@@ -94,13 +62,45 @@ public class GrowthChartManager {
      * @param sex - entero que define el sexo del paciente
      * @return archivo - nombre del archivo a leer
      */
-    public String elegirlongitudxPeso(int sex){
+    public String elegirTablaEstatura(String sex){
+        String archivo = null;
+        if(sexo(sex)){
+            archivo = "resources/tablas_crecimiento/niños/statageMujeres.csv";
+        }else{
+            archivo = "resources/tablas_crecimiento/niños/statageHombre.csv";
+        }//checamos sexo
+        return archivo;
+    }
+
+    /**
+     * Metodo para definir que tabla leer dependiendo al sexo del paciente
+     * @param sex - entero que define el sexo del paciente
+     * @return archivo - nombre del archivo a leer
+     */
+    public String elegirlongitudxEdad(String sex){
 
         String archivo = null;
         if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/bebés/longitudxPesoMujeres.csv";
+            archivo = "resources/tablas_crecimiento/bebés/longitudxEdadMujeres.csv";
         }else{
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/bebés/longitudxPesoHombres.csv";
+            archivo = "resources/tablas_crecimiento/bebés/longitudxEdadHombres.csv";
+        }//checamos sexo
+        return archivo;
+    }
+
+    
+    /**
+     * Metodo para definir que tabla leer dependiendo al sexo del paciente
+     * @param sex - entero que define el sexo del paciente
+     * @return archivo - nombre del archivo a leer
+     */
+    public String elegirlongitudxPeso(String sex){
+
+        String archivo = null;
+        if(sexo(sex)){
+            archivo = "resources/tablas_crecimiento/bebés/longitudxPesoMujeres.csv";
+        }else{
+            archivo = "resources/tablas_crecimiento/bebés/longitudxPesoHombres.csv";
         }//checamos sexo
         return archivo;
     }
@@ -110,13 +110,13 @@ public class GrowthChartManager {
      * @param sex - entero que define el sexo del paciente
      * @return archivo - nombre del archivo a leer
      */
-    public String elegirPesoxEdad(int sex){
+    public String elegirPesoxEdad(String sex){
 
         String archivo = null;
         if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/bebés/pesoxEdadMujeres.csv";
+            archivo = "resources/tablas_crecimiento/bebés/pesoxEdadMujeres.csv";
         }else{
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/bebés/pesoxEdadHombres.csv";
+            archivo = "resources/tablas_crecimiento/bebés/pesoxEdadHombres.csv";
         }//checamos sexo
         return archivo;
     }
@@ -126,13 +126,13 @@ public class GrowthChartManager {
      * @param sex - entero que define el sexo del paciente
      * @return archivo - nombre del archivo a leer
      */
-    public String elegirPerimetroCefalico(int sex){
+    public String elegirPerimetroCefalico(String sex){
 
         String archivo = null;
         if(sexo(sex)){
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/bebés/perimetroCefalicoMujeres.csv";
+            archivo = "resources/tablas_crecimiento/bebés/perimetroCefalicoMujeres.csv";
         }else{
-            archivo = "/home/dianis/NetBeansProjects/Percentil/tablas_crecimiento/bebés/perimetroCefalicoHombres.csv";
+            archivo = "resources/tablas_crecimiento/bebés/perimetroCefalicoHombres.csv";
         }//checamos sexo
         return archivo;
     }

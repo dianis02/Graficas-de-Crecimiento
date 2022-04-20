@@ -91,7 +91,7 @@ public class HoveredThresholdNode extends Pane {
     public static void borrarPuntos(XYChart.Series<Double, Double> ser){
         for (XYChart.Data<Double, Double> data : ser.getData()) {
             Node stackPane = data.getNode();
-            stackPane.setVisible(false);
+           stackPane.setVisible(false);
         }
     }
 

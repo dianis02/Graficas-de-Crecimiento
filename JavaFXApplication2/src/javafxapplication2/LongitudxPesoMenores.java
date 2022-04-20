@@ -24,8 +24,9 @@ public class LongitudxPesoMenores {
     NumberAxis xAxis = new NumberAxis(45,110,5); //ejes
     NumberAxis yAxis = new NumberAxis(0,22,2);
     String nombre = "Peso para la Longitud Menores 2 Años";
+    PropiedadesGrafica editor = new PropiedadesGrafica();
 
-    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento,int sexo){
+    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento,String sexo){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={45,3.5,55,5,63,7,75,10,85,15,90,17};
         //Manejador datos csv
@@ -107,13 +108,7 @@ public class LongitudxPesoMenores {
 
         chart.getData().remove(0,1);
         chart.getData().addAll(series1, series2, series3,series4,series5,series);
-        //estilo grafica
-        chart.setAnimated(false);
-        chart.setLegendSide(Side.RIGHT);
-        chart.setCursor(Cursor.CROSSHAIR);
-        chart.setPrefSize(1000, 700);
-        chart.setTitle(nombre);
-
+       
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
             if (ser.getName().equals("crecimiento")) //if Name is "blue" then continue
@@ -127,41 +122,8 @@ public class LongitudxPesoMenores {
         }
 
 
-        //Estilo linea
-        Node line = series.getNode().lookup(".chart-series-line");
-        Node line1 = series1.getNode().lookup(".chart-series-line");
-        Node line2 = series2.getNode().lookup(".chart-series-line");
-        Node line3 = series3.getNode().lookup(".chart-series-line");
-        Node line4 = series4.getNode().lookup(".chart-series-line");
-        Node line5 = series5.getNode().lookup(".chart-series-line");
-
-
-
-
-
-        if(manager.sexo(sexo)){
-            line.setStyle("-fx-stroke: #FF00FF;");
-        }else{
-            line.setStyle("-fx-stroke: #0000FF;");
-        }
-
-
-        line1.setStyle("-fx-stroke: #FF0000;");
-        line2.setStyle("-fx-stroke: #FFFF00;");
-        line3.setStyle("-fx-stroke: #00FF00;");
-        line4.setStyle("-fx-stroke: #00FF00;");
-        line5.setStyle("-fx-stroke: #00FF00;");
-
-
-
-
-        //calculo zscore y percentil
-        //System.out.println(manager.Zscore(16.80719583, 30.5,arrli)+","+ manager.percentil(16.80719583, 30.5,arrli));
-        //System.out.println(manager.Zscore(84.51558277, 30.5,arrli)+","+ manager.percentil(84.51558277, 30.5,arrli));
-        //System.out.println(manager.Zscore(2.4, 45,arrli)+","+ manager.percentil(2.4, 45,arrli));
-
-        //new ZoomManager(root, chart, series);
-
+      
+        editor.estiloMenores(chart, sexo,nombre);
         return chart;
     }
 

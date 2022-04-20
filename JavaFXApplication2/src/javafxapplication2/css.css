@@ -1,0 +1,17 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4/09/2021, 03:17:00 AM
+    Author     : dianis
+*/
+
+.default-color0.chart-series-line { -fx-stroke: #e9967a; }
+.default-color1.chart-series-line { -fx-stroke: #f0e68c; }
+.default-color2.chart-series-line { -fx-stroke: #dda0dd; }
+ 
+.default-color0.chart-line-symbol { -fx-background-color: #e9967a, white; }
+.default-color1.chart-line-symbol { -fx-background-color: #f0e68c, white; }
+.default-color2.chart-line-symbol { -fx-background-color: #dda0dd, white; }

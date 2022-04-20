@@ -24,8 +24,10 @@ public class LongitudxEdadMenores {
     NumberAxis xAxis = new NumberAxis(0,25,1); //ejes
     NumberAxis yAxis = new NumberAxis(45,95,5);
     String nombre = "Longitud para la Edad Menores 2 Años";
+    PropiedadesGrafica editor = new PropiedadesGrafica();
 
-    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento,int sexo){
+
+    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento,String sexo){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={2,58,5,62,10,67,14,80,18,85,22,89};
         //Manejador datos csv
@@ -108,12 +110,6 @@ public class LongitudxEdadMenores {
 
         chart.getData().remove(0,1);
         chart.getData().addAll(series1, series2, series3,series4,series5,series);
-        //estilo grafica
-        chart.setAnimated(false);
-        chart.setLegendSide(Side.RIGHT);
-        chart.setCursor(Cursor.CROSSHAIR);
-        chart.setPrefSize(1000, 700);
-        chart.setTitle(nombre);
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
@@ -127,34 +123,7 @@ public class LongitudxEdadMenores {
             }
         }
 
-
-        //Estilo linea
-        Node line = series.getNode().lookup(".chart-series-line");
-        Node line1 = series1.getNode().lookup(".chart-series-line");
-        Node line2 = series2.getNode().lookup(".chart-series-line");
-        Node line3 = series3.getNode().lookup(".chart-series-line");
-        Node line4 = series4.getNode().lookup(".chart-series-line");
-        Node line5 = series5.getNode().lookup(".chart-series-line");
-
-
-
-
-
-        if(manager.sexo(sexo)){
-            line.setStyle("-fx-stroke: #FF00FF;");
-        }else{
-            line.setStyle("-fx-stroke: #0000FF;");
-        }
-
-
-        line1.setStyle("-fx-stroke: #FF0000;");
-        line2.setStyle("-fx-stroke: #FFFF00;");
-        line3.setStyle("-fx-stroke: #00FF00;");
-        line4.setStyle("-fx-stroke: #00FF00;");
-        line5.setStyle("-fx-stroke: #00FF00;");
-
-        //new ZoomManager(root, chart, series);
-
+        editor.estiloMenores(chart, sexo,nombre);
         return chart;
     }
 

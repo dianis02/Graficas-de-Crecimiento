@@ -6,6 +6,7 @@
 package javafxapplication2;
 
 import java.util.ArrayList;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
@@ -24,8 +25,9 @@ public class IMC {
     NumberAxis xAxis = new NumberAxis(1,21,1); //ejes
     NumberAxis yAxis = new NumberAxis(13,35,2);
     String nombre = "Índice de Masa Corporal";
+    PropiedadesGrafica editor = new PropiedadesGrafica();
 
-    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento,int sexo){
+    public LineChart Grafica(Pane root,LineChart chart,double[] crecimiento,String sexo){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={24,14.3,30,14.7,43,15.8,60,15.9,77,16.4,90,17,217,30};
         //Manejador datos csv
@@ -127,76 +129,25 @@ public class IMC {
         )
         );
 
-
-
         //lo obtenemos y lo eliminamos para añadirlo al final
         //porque lo dibuja atras de lo contrario
         XYChart.Series series = (XYChart.Series)chart.getData().get(0);
-
         chart.getData().remove(0,1);
-        chart.getData().addAll(series1, series2, series3,series4,series5,series6,series7,series10,series11,series);
-        //estilo grafica
-        chart.setAnimated(false);
-        chart.setLegendSide(Side.RIGHT);
-        chart.setCursor(Cursor.CROSSHAIR);
-        chart.setPrefSize(1000, 700);
-        chart.setTitle(nombre);
-
+        chart.getData().addAll(series11, series10, series7,series6,series5,series4,series3,series2,series1,series);
+        
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
-            if (ser.getName().equals("crecimiento")) //if Name is "blue" then continue
+            if (ser.getName().equals("crecimiento")) //crecimiento si lleva nodos
             continue;
 
-            //for all series, take date, each data has Node (symbol) for representing point
+            //cada dato representado por un nodo de los perceniles lo haces invisible
             for (XYChart.Data<Double, Double> data : ser.getData()) {
                 Node stackPane = data.getNode();
                 stackPane.setVisible(false);
             }
         }
-
-
-        //Estilo linea
-        Node line = series.getNode().lookup(".chart-series-line");
-        Node line1 = series1.getNode().lookup(".chart-series-line");
-        Node line2 = series2.getNode().lookup(".chart-series-line");
-        Node line3 = series3.getNode().lookup(".chart-series-line");
-        Node line4 = series4.getNode().lookup(".chart-series-line");
-        Node line5 = series5.getNode().lookup(".chart-series-line");
-        Node line6 = series6.getNode().lookup(".chart-series-line");
-        Node line7 = series7.getNode().lookup(".chart-series-line");
-
-        Node line10 = series10.getNode().lookup(".chart-series-line");
-        Node line11 = series11.getNode().lookup(".chart-series-line");
-
-
-
-        if(manager.sexo(sexo)){
-            line.setStyle("-fx-stroke: #FF00FF;");
-        }else{
-            line.setStyle("-fx-stroke: #0000FF;");
-        }
-
-        //rojo=#FF0000;
-        //amarillo= #FFFF00"
-        //verde= #00FF00;
-        line1.setStyle("-fx-stroke: #FF0000;");//rojo
-        line2.setStyle("-fx-stroke: #FF0000;");
-        line3.setStyle("-fx-stroke: #FFFF00;");
-        line4.setStyle("-fx-stroke: #00FF00;");//verde
-        line5.setStyle("-fx-stroke: #00FF00;");
-        line6.setStyle("-fx-stroke: #FFFF00;");
-        line7.setStyle("-fx-stroke: #FFFF00");//amarillo
-        line10.setStyle("-fx-stroke: #FF0000;");
-        line11.setStyle("-fx-stroke: #FF0000;");
-
-
-        //calculo zscore y percentil
-        //System.out.println(manager.Zscore(16.80719583, 30.5,arrli)+","+ manager.percentil(16.80719583, 30.5,arrli));
-        //System.out.println(manager.Zscore(84.51558277, 30.5,arrli)+","+ manager.percentil(84.51558277, 30.5,arrli));
-        //System.out.println(manager.Zscore(2.4, 45,arrli)+","+ manager.percentil(2.4, 45,arrli));
-
-        //new ZoomManager(root, chart, series);
-
+  
+         editor.estiloIMC(chart, sexo,"Índice de Masa Corporal");
         return chart;
     }
 

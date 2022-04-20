@@ -21,9 +21,10 @@ public class PesoxEdadMayores {
     NumberAxis xAxis = new NumberAxis(1,20,1); //ejes
     NumberAxis yAxis = new NumberAxis();
     String nombre = "Peso para la edad";
+    PropiedadesGrafica editor = new PropiedadesGrafica();
 
 
-    public LineChart Grafica(Pane root, LineChart chart,double[] crecimiento,int sexo){
+    public LineChart Grafica(Pane root, LineChart chart,double[] crecimiento,String sexo){
         //datos del paciente provisionales, se debe jalar de la base
         double[] arr ={24,11,30,11.5,43,15,60,20,77,25,90,29};
         //Manejador datos csv
@@ -120,12 +121,12 @@ public class PesoxEdadMayores {
         chart.getData().remove(0,1);
         chart.getData().addAll(series1, series2, series3,series4,series5,series6,series7,series);
         //estilo grafica
-        chart.setAnimated(false);
+        /**chart.setAnimated(false);
         chart.setLegendSide(Side.RIGHT);
         chart.setCursor(Cursor.CROSSHAIR);
         chart.setPrefSize(1000, 700);
 
-        chart.setTitle(nombre);
+        chart.setTitle(nombre);*/
 
         //lineas con puntos o solo la línea
         for (XYChart.Series<Double, Double> ser :(ObservableList<XYChart.Series<Double, Double>> )chart.getData()) {
@@ -139,7 +140,7 @@ public class PesoxEdadMayores {
             }
         }
 
-
+/**
         //Estilo linea
         Node line = series.getNode().lookup(".chart-series-line");
         Node line1 = series1.getNode().lookup(".chart-series-line");
@@ -166,18 +167,12 @@ public class PesoxEdadMayores {
         line4.setStyle("-fx-stroke: #00FF00;");
         line5.setStyle("-fx-stroke: #00FF00;");
         line6.setStyle("-fx-stroke: #FFFF00;");
-        line7.setStyle("-fx-stroke: #FF0000;");
+        line7.setStyle("-fx-stroke: #FF0000;"); */
 
 
 
 
-        //calculo zscore y percentil
-        //System.out.println(manager.Zscore(16.80719583, 30.5,arrli)+","+ manager.percentil(16.80719583, 30.5,arrli));
-        //System.out.println(manager.Zscore(84.51558277, 30.5,arrli)+","+ manager.percentil(84.51558277, 30.5,arrli));
-        //System.out.println(manager.Zscore(2.4, 45,arrli)+","+ manager.percentil(2.4, 45,arrli));
-
-        //new ZoomManager(root, chart, series);
-
+          editor.estiloMayores(chart, sexo,"Peso para la edad");
         return chart;
     }
 

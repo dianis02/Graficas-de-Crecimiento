@@ -22,9 +22,11 @@ public class ReadExcelFile{
         String linea = null;
         Scanner in = null;
         FileReader archivo = null;
+        File f = new File(nombreArchivo);
+        String absolute = f.getAbsolutePath();
         
         try{
-            archivo=new FileReader(nombreArchivo);
+            archivo=new FileReader(absolute);
             //Creamos el objeto de lectura
             in = new Scanner(archivo);
             //ciclo para leer todo el archivo
